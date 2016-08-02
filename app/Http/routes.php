@@ -19,3 +19,7 @@ Route::resource('opiniao', 'OpiniaoController');
 Route::get('projeto/search', 'ProjetoController@search');
 Route::get('projeto/aprove/{id}', 'ProjetoController@aprove');
 Route::resource('projeto', 'ProjetoController');
+
+Route::auth();
+
+Route::get('/home', 'HomeController@index');

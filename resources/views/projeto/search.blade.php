@@ -1,0 +1,37 @@
+@push('scripts')
+    <script src="/scripts/projeto.js"></script>
+@endpush
+
+@extends('layouts.app')
+
+@section('content')
+    <div class="panel-body">
+        <table id="table" class="table">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>Titulo</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach($projetos as $projeto): ?>
+                    <tr>
+                        <td><?php echo $projeto->id?></td>
+                        <td><a href="projeto/aprove/<?php echo $projeto->id?>"><?php echo $projeto->titulo?></a></td>
+                        <td>
+                            <a href="projeto/aprove/<?php echo $projeto->id?>" class="btn btn-default">Opinião</a>
+                            <a href="projeto/aprove/<?php echo $projeto->id?>" class="btn btn-default">Discussão</a>
+                            <a href="projeto/aprove/<?php echo $projeto->id?>" class="btn btn-default">Editar</a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        jQuery(document).ready(function(){
+            jQuery('#table').DataTable();
+        });
+    </script>
+@endsection

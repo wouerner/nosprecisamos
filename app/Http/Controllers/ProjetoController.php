@@ -25,12 +25,13 @@ class ProjetoController extends Controller
         return view('projeto.search', ['projetos' => Projeto::limit(10)->get()]);
     }
 
-    public function aprove($id)
+    public function find($string)
     {
-        return view('projeto.aprove', ['projeto' => Projeto::find($id)]);
+        $projetos = Projeto::where('titulo', 'LIKE', "%$string%")->get();
+        return view('projeto.search', ['projetos' => $projetos]);
     }
 
-    public function find($string)
+    public function aprove($id)
     {
         return view('projeto.aprove', ['projeto' => Projeto::find($id)]);
     }
