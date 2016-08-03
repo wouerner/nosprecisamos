@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Models\Projeto;
+use App\Models\Categoria;
+use Auth;
 
 class ProjetoController extends Controller
 {
@@ -43,7 +45,7 @@ class ProjetoController extends Controller
      */
     public function create()
     {
-        return view('projeto.create');
+        return view('projeto.create', [ 'categorias' => Categoria::all()]);
     }
 
     /**
@@ -59,6 +61,7 @@ class ProjetoController extends Controller
         $projeto->titulo = $request->titulo;
         $projeto->descricao = $request->descricao;
         $projeto->categorias_id = $request->categorias_id;
+        $projeto->users_id = Auth::user()->id;
 
         $sucesso = $projeto->save();
 

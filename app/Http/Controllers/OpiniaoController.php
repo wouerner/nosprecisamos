@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Models\Opiniao;
+use App\Models\Projeto;
+use Auth;
 
 class OpiniaoController extends Controller
 {
@@ -25,9 +27,9 @@ class OpiniaoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        //
+        return view('opiniao.create', [ 'projeto' => Projeto::find($id)]);
     }
 
     /**
@@ -42,6 +44,7 @@ class OpiniaoController extends Controller
 
         $opiniao->projetos_id = $request->projetos_id;
         $opiniao->aprovado = $request->aprovado;
+        $opiniao->users_id = Auth::user()->id;
 
         $sucesso = $opiniao->save();
 

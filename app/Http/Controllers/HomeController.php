@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use Illuminate\Http\Request;
+use Auth;
+use App\Models\Projeto;
 
 class HomeController extends Controller
 {
@@ -24,6 +26,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+
+        //return view('home');
+        return view('home', ['projetos' => Projeto::where('users_id', Auth::user()->id)->get()]);
     }
 }

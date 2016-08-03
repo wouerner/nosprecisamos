@@ -14,7 +14,12 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::resource('opiniao', 'OpiniaoController');
+Route::get('categoria/search', 'CategoriaController@search');
+Route::get('categoria/projetos/{id}', 'CategoriaController@projetos');
 Route::resource('categoria', 'CategoriaController');
+
+Route::get('opiniao/create/{id}', 'OpiniaoController@create');
 Route::resource('opiniao', 'OpiniaoController');
 Route::get('projeto/search', 'ProjetoController@search');
 Route::get('projeto/aprove/{id}', 'ProjetoController@aprove');

@@ -25,7 +25,13 @@
             <div class="form-group">
                 <label for="task" class="col-sm-3 control-label">Categoria</label>
                 <div class="col-sm-6">
-                    <input type="text" id="categorias_id" name="categorias_id" class="form-control">
+                    <select class="form-control" id="categorias_id" name="categorias_id">
+                        <?php foreach($categorias as $categoria): ?>
+                            <option value="<?php echo $categoria->id?>">
+                                <?php echo $categoria->nome ?>
+                            </option>
+                        <?php endforeach;?>
+                    </select>
                 </div>
             </div>
             <div class="form-group">
@@ -37,4 +43,7 @@
             </div>
         </form>
     </div>
+    <script type="text/javascript">
+      jQuery('select').select2();
+    </script>
 @endsection
