@@ -17,7 +17,7 @@
                 <?php foreach($categorias as $categoria): ?>
                     <tr>
                         <td><?php echo $categoria->id ;?></td>
-                        <td><a href="projeto/lista/<?php echo $categoria->id?>"><?php echo $categoria->nome ?></a></td>
+                        <td><a href="{{url('categoria/projetos')}}/<?php echo $categoria->id?>"><?php echo $categoria->nome ?></a></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
