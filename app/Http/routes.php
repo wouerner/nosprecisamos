@@ -14,16 +14,17 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::resource('opiniao', 'OpiniaoController');
+
 Route::get('categoria/search', 'CategoriaController@search');
 Route::get('categoria/projetos/{id}', 'CategoriaController@projetos');
-Route::resource('categoria', 'CategoriaController');
 
-Route::get('opiniao/create/{id}', 'OpiniaoController@create');
-Route::resource('opiniao', 'OpiniaoController');
+Route::get('opiniao/create/{id}', ['middleware' => 'auth', 'uses' => 'OpiniaoController@create']);
+Route::post('opiniao', ['middleware' => 'auth', 'uses' => 'OpiniaoController@store']);
+
+Route::get('projeto/create', ['middleware' => 'auth', 'uses' => 'ProjetoController@create']);
+Route::post('projeto', ['middleware' => 'auth', 'uses' => 'ProjetoController@store']);
 Route::get('projeto/search', 'ProjetoController@search');
 Route::get('projeto/aprove/{id}', 'ProjetoController@aprove');
-Route::resource('projeto', 'ProjetoController');
 
 Route::auth();
 

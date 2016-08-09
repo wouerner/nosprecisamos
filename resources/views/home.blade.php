@@ -1,9 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
     <div class="row">
-        <div class="col-md-10 col-md-offset-1">
+        <div class="col-md-12 ">
             <div class="panel panel-default">
                 <div class="panel-heading">Meus projetos</div>
 
@@ -21,11 +20,10 @@
                             <?php foreach($projetos as $projeto): ?>
                                 <tr>
                                     <td><?php echo $projeto->id?></td>
-                                    <td><a href="projeto/aprove/<?php echo $projeto->id?>"><?php echo $projeto->titulo?></a></td>
+                                    <td><?php echo $projeto->titulo?></td>
                                     <td>
-                                        <a href="projeto/aprove/<?php echo $projeto->id?>" class="btn btn-default">Opinião</a>
+                                        <a href="{{url('opiniao/create')}}/<?php echo $projeto->id?>" class="btn btn-default">Opinião</a>
                                         <a href="projeto/aprove/<?php echo $projeto->id?>" class="btn btn-default">Discussão</a>
-                                        <a href="projeto/aprove/<?php echo $projeto->id?>" class="btn btn-default">Editar</a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -33,18 +31,20 @@
                     </table>
                     <script>
                         jQuery(document).ready(function(){
-                            jQuery('#table').DataTable();
+                            jQuery('#table').DataTable({
+                               "language": {url: "/scripts/Portuguese-Brasil.json"}
+                            });
                         });
+
                     </script>
                     <?php else: ?>
                         <p>Você não tem projetos</p>
                     <?php endif;?>
                 </div>
                 <div class="panel-footer">
-                    <a class="btn btn-default" href="{{url('projeto/create')}}" role="button">Novo Projeto</a>
+                    <a class="btn btn-success" href="{{url('projeto/create')}}" role="button">Novo Projeto</a>
                 </div>
             </div>
         </div>
     </div>
-</div>
 @endsection

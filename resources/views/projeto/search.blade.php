@@ -22,9 +22,10 @@
                         <td><a href="projeto/aprove/<?php echo $projeto->id?>"><?php echo $projeto->titulo?></a></td>
                         <td><a href="#"><?php echo $projeto->user->name; ?></td>
                         <td>
-                            <a href="{{url('opiniao/create')}}/<?php echo $projeto->id?>" class="btn btn-default">Opinião</a>
+                            <?php if (Auth::check()) : ?>
+                                <a href="{{url('opiniao/create')}}/<?php echo $projeto->id?>" class="btn btn-default">Opinião</a>
+                            <?php endif ?>
                             <a href="/projeto/aprove/<?php echo $projeto->id?>" class="btn btn-default">Discussão</a>
-                            <a href="/projeto/aprove/<?php echo $projeto->id?>" class="btn btn-default">Editar</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -33,7 +34,11 @@
     </div>
     <script>
         jQuery(document).ready(function(){
-            jQuery('#table').DataTable();
+            jQuery('#table').DataTable(
+                {
+                   "language": {url: "/scripts/Portuguese-Brasil.json"}
+
+                })
         });
     </script>
 @endsection

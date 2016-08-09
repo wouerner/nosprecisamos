@@ -14,7 +14,9 @@
 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
+    <script src="https://cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"></script>
     <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.full.min.js"></script>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -67,11 +69,11 @@
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/home') }}">Home</a></li>
+                    <li><a href="{{ url('/home') }}">Inicio</a></li>
                     <li class=""><a href="/projeto/search">Projetos <span class="sr-only">(current)</span></a></li>
                     <li><a href="/categoria/search">Categorias</a></li>
                     <li><a href="/categoria/search">Quem nós somos</a></li>
-                    <li><a href="https://github.com/wouerner/nosprecisamos">Github</a></li>
+                    <li><a href="https://github.com/wouerner/nosprecisamos">Código Fonte</a></li>
                     <li><a href="#">Privacidade</a></li>
                 </ul>
 
@@ -96,10 +98,8 @@
             </div>
         </div>
     </nav>
-
     <div class="container-fluid">
-    @yield('content')
+        @yield('content')
     </div>
-
 </body>
 </html>

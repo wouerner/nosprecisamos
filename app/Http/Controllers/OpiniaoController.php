@@ -29,7 +29,19 @@ class OpiniaoController extends Controller
      */
     public function create($id)
     {
-        return view('opiniao.create', [ 'projeto' => Projeto::find($id)]);
+        $this->middleware('auth');
+
+        $opiniaoUsuario = Opiniao::where('projetos_id', $id)->where('users_id', Auth::user()->id)->get();
+
+        $aprovado = Opiniao::where('projetos_id', $id)->where('aprovado', 1)->get();
+        $reprovado = Opiniao::where('projetos_id', $id)->where('aprovado', 0)->get();
+
+        return view('opiniao.create', [
+            'projeto' => Projeto::find($id),
+            'opiniaoUsuario' => $opiniaoUsuario->first(),
+            'aprovado' => $aprovado->count(),
+            'reprovado' =>  $reprovado->count()]
+        );
     }
 
     /**
@@ -40,9 +52,11 @@ class OpiniaoController extends Controller
      */
     public function store(Request $request)
     {
+        $this->middleware('auth');
+
         $opiniao = new Opiniao();
 
-        $opiniao->projetos_id = $request->projetos_id;
+        $opiniao->projetos_id = $request->projeto;
         $opiniao->aprovado = $request->aprovado;
         $opiniao->users_id = Auth::user()->id;
 
@@ -74,28 +88,5 @@ class OpiniaoController extends Controller
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-        $sucesso = Categoria::destroy($id);
-        return ['sucesso' => $sucesso];
-    }
 }

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Models\Projeto;
 use App\Models\Categoria;
+use App\Models\Opiniao;
 use Auth;
 
 class ProjetoController extends Controller
@@ -18,24 +19,24 @@ class ProjetoController extends Controller
      */
     public function index()
     {
-        //
         return Projeto::all();
     }
 
     public function search()
     {
-        return view('projeto.search', ['projetos' => Projeto::limit(10)->get()]);
-    }
-
-    public function find($string)
-    {
-        $projetos = Projeto::where('titulo', 'LIKE', "%$string%")->get();
-        return view('projeto.search', ['projetos' => $projetos]);
+        return view('projeto.search', ['projetos' => Projeto::all()]);
     }
 
     public function aprove($id)
     {
-        return view('projeto.aprove', ['projeto' => Projeto::find($id)]);
+        $aprovado = Opiniao::where('projetos_id', $id)->where('aprovado', 1)->get();
+        $reprovado = Opiniao::where('projetos_id', $id)->where('aprovado', 0)->get();
+
+        return view('projeto.aprove',
+            ['projeto' => Projeto::find($id),
+            'aprovado' => $aprovado->count(),
+            'reprovado' =>  $reprovado->count()
+        ]);
     }
 
     /**
@@ -45,6 +46,8 @@ class ProjetoController extends Controller
      */
     public function create()
     {
+        $this->middleware('auth');
+
         return view('projeto.create', [ 'categorias' => Categoria::all()]);
     }
 
@@ -56,6 +59,8 @@ class ProjetoController extends Controller
      */
     public function store(Request $request)
     {
+        $this->middleware('auth');
+
         $projeto = new Projeto();
 
         $projeto->titulo = $request->titulo;
@@ -76,49 +81,6 @@ class ProjetoController extends Controller
      */
     public function show($id)
     {
-        //
         return Projeto::find($id);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-        $projeto = Projeto::find($id);
-
-        $projeto->nome = $request->nome;
-
-        $sucesso = $projeto->save();
-        return ['success' => $sucesso];
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-        $sucesso = Projeto::destroy($id);
-        return ['sucesso' => $sucesso];
     }
 }
